@@ -16,5 +16,5 @@ class OrderService:
             user_id=user_id,
             order_status=OrderStatus.PREPARE,
         )
-        await self._publisher.prepare_order(user_id)
+        await self._publisher.prepare_order(order.order_id, user_id)
         await self._repository.save_order_on_db(order)

@@ -9,4 +9,5 @@ class OrderBrokerSchema(BaseModel, ABC):
 
 
 class PrepareOrderBrokerSchema(OrderBrokerSchema):
+    order_id: uuid.UUID
     user_id: uuid.UUID

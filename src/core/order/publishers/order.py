@@ -14,9 +14,9 @@ class RMQOrderPublisher(IOrderPublisher):
     def __init__(self, broker: RabbitBroker):
         self._broker = broker
 
-    async def prepare_order(self, user_id: uuid.UUID) -> None:
+    async def prepare_order(self, order_id: uuid.UUID, user_id: uuid.UUID) -> None:
         exchange, queue = await self._prepare_to_publish(self._PREPARE_ORDER_QUEUE_NAME)
-        order_schema = PrepareOrderBrokerSchema(user_id=user_id)
+        order_schema = PrepareOrderBrokerSchema(order_id=order_id, user_id=user_id)
         await self._publish(exchange, queue, order_schema)
 
     async def _prepare_to_publish(self, queue_name: str) -> tuple[RobustExchange, RobustQueue]:
