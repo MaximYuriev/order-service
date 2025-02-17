@@ -13,3 +13,9 @@ class Order:
 
     def __post_init__(self):
         self.order_status = self.order_status.value
+
+
+@dataclass
+class CanceledOrder:
+    order_id: uuid.UUID
+    reason: str

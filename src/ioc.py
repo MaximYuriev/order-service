@@ -7,9 +7,11 @@ from sqlalchemy.ext.asyncio import create_async_engine, AsyncEngine, async_sessi
 from src.config import Config
 from src.core.order.interfaces.publishers.order import IOrderPublisher
 from src.core.order.interfaces.repositories.order import IOrderRepository
+from src.core.order.interfaces.uow.order import IOrderUoW
 from src.core.order.publishers.order import RMQOrderPublisher
 from src.core.order.repositories.order import OrderRepository
 from src.core.order.services.order import OrderService
+from src.core.order.uow.order import OrderUoW
 
 
 class SQLAlchemyProvider(Provider):
@@ -41,6 +43,6 @@ class RMQProvider(Provider):
 class OrderProvider(Provider):
     scope = Scope.REQUEST
 
-    order_repository = provide(OrderRepository, provides=IOrderRepository)
+    order_uow = provide(OrderUoW, provides=IOrderUoW)
     order_publisher = provide(RMQOrderPublisher, provides=IOrderPublisher)
     order_service = provide(OrderService)

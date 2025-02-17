@@ -6,7 +6,7 @@ from sqlalchemy import pool
 from alembic import context
 from src.main import config as app_config
 from src.core.commons.model import Base
-from src.core.order.models.order import OrderModel
+from src.core.order.models.order import OrderModel, CanceledOrderModel
 from src.core.order.models.product_on_order import ProductOnOrderModel
 
 # this is the Alembic Config object, which provides

@@ -17,7 +17,6 @@ class OrderRepository(IOrderRepository):
     async def save_order_on_db(self, order: Order) -> None:
         order_model = OrderModel.from_entity(order)
         self._session.add(order_model)
-        await self._session.commit()
 
     async def get_order_from_db(self, order_id: uuid.UUID) -> Order:
         order_model = await self._get_order_model(order_id)
@@ -28,7 +27,6 @@ class OrderRepository(IOrderRepository):
         update_order_data = update_order.__dict__
         for key, value in update_order_data.items():
             setattr(order_model, key, value)
-        await self._session.commit()
 
     async def _get_order_model(self, order_id: uuid.UUID, **kwargs) -> OrderModel:
         query = (
