@@ -4,11 +4,12 @@ from fastapi import FastAPI
 
 from src.api.order.router import order_router
 from src.config import Config
-from src.ioc import OrderProvider, SQLAlchemyProvider, RMQProvider
+from src.ioc import OrderProvider, SQLAlchemyProvider, RMQProvider, ConsumerOrderProvider
 
 config = Config()
 container = make_async_container(
     OrderProvider(),
+    ConsumerOrderProvider(),
     SQLAlchemyProvider(),
     RMQProvider(),
     context={Config: config},

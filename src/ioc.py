@@ -4,12 +4,11 @@ from dishka import Provider, from_context, Scope, provide
 from faststream.rabbit import RabbitBroker
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncEngine, async_sessionmaker, AsyncSession
 
+from src.broker.order.adapter import ConsumerOrderAdapter
 from src.config import Config
 from src.core.order.interfaces.publishers.order import IOrderPublisher
-from src.core.order.interfaces.repositories.order import IOrderRepository
 from src.core.order.interfaces.uow.order import IOrderUoW
 from src.core.order.publishers.order import RMQOrderPublisher
-from src.core.order.repositories.order import OrderRepository
 from src.core.order.services.order import OrderService
 from src.core.order.uow.order import OrderUoW
 
@@ -46,3 +45,9 @@ class OrderProvider(Provider):
     order_uow = provide(OrderUoW, provides=IOrderUoW)
     order_publisher = provide(RMQOrderPublisher, provides=IOrderPublisher)
     order_service = provide(OrderService)
+
+
+class ConsumerOrderProvider(Provider):
+    scope = Scope.REQUEST
+
+    consumer_order_adapter = provide(ConsumerOrderAdapter)
